@@ -1,0 +1,215 @@
+@import "../../global.scss";
+
+.rightBar {
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	height: 100vh;
+
+	@include responsive833 {
+		display: none;
+	}
+
+	.container {
+		background-color: rgb(209, 209, 209);
+		color: #333;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		.top {
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 16px;
+			background-color: white;
+			height: 60px;
+			width: 100%;
+
+			// @include responsive768 {
+			// 	gap: 2px;
+			// }
+
+			.notification {
+				position: relative;
+				cursor: pointer;
+
+				span {
+					position: absolute;
+					top: -6px;
+					left: 10px;
+					width: 16px;
+					height: 16px;
+					padding: 8px;
+					font-weight: 500;
+					font-size: 12px;
+					border-radius: 50%;
+					background-color: crimson;
+					color: white;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+				}
+			}
+
+			.rbImgDiv {
+				position: relative;
+				img {
+					width: 32px;
+					height: 32px;
+					border-radius: 50%;
+					object-fit: cover;
+					border: 2px solid crimson;
+				}
+
+				.online {
+					position: absolute;
+					top: 16px;
+					left: 26px;
+					width: 10px;
+					height: 10px;
+					background-color: green;
+					border-radius: 50%;
+				}
+			}
+
+			.nContainer {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				position: absolute;
+				top: 45px;
+				right: 80px;
+				background-color: gray;
+				width: max-content;
+				height: max-content;
+				border-radius: 8px;
+				padding: 6px;
+
+				.nWrapper {
+					width: 100%;
+					height: 100%;
+
+					.list {
+						display: flex;
+						flex-direction: column;
+						gap: 10px;
+
+						.listItem {
+							background-color: white;
+							padding: 6px;
+							border-radius: 8px;
+							font-weight: 500;
+							font-size: 14px;
+							cursor: pointer;
+						}
+					}
+
+					.clearBtn {
+						width: 100%;
+						margin-top: 10px;
+						border: none;
+						cursor: pointer;
+						background-color: crimson;
+						color: white;
+						padding: 6px;
+						font-weight: 500;
+						border-radius: 8px;
+						transition: all 0.5s ease-in-out;
+
+						&:hover {
+							transform: scale(1.02);
+						}
+					}
+				}
+			}
+
+			.profile {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+				background-color: teal;
+				padding: 10px;
+				position: absolute;
+				top: 60px;
+				right: 10px;
+				gap: 16px;
+				border-radius: 6px;
+				width: 200px;
+
+				.viewBtn {
+					width: 100%;
+					text-align: center;
+					background-color: #0c1d27;
+					color: white;
+					cursor: pointer;
+					border: none;
+					padding: 8px;
+					border-radius: 8px;
+					transition: all 0.5s ease-in-out;
+
+					&:hover {
+						transform: scale(1.01);
+					}
+				}
+
+				.logoutBtn {
+					border: none;
+					width: 100%;
+					background-color: crimson;
+					color: white;
+					padding: 6px;
+					cursor: pointer;
+					padding: 8px;
+					border-radius: 8px;
+					transition: all 0.5s ease-in-out;
+
+					&:hover {
+						transform: scale(1.01);
+					}
+				}
+			}
+		}
+
+		.bottom {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+			height: 90%;
+
+			h2 {
+				color: #0c1d27;
+				text-align: center;
+			}
+
+			span {
+				font-weight: bold;
+			}
+
+			img {
+				width: 100px;
+				height: 100px;
+				border-radius: 50%;
+				object-fit: cover;
+				border: 3px solid crimson;
+			}
+
+			p {
+				text-align: center;
+			}
+
+			.contact {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+				gap: 10px;
+			}
+		}
+	}
+}

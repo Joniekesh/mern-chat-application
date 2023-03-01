@@ -1,0 +1,108 @@
+@import "../../global.scss";
+
+.chats {
+	flex: 1;
+	background-color: lightgray;
+	height: 100vh;
+	min-width: 300px;
+	overflow-y: scroll;
+	z-index: 3;
+
+	@include mobile {
+		width: 100%;
+	}
+
+	.container {
+		background-color: white;
+		height: max-content;
+		border-radius: 10px;
+		color: #333;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		padding: 10px;
+
+		.top {
+			position: sticky;
+			top: 0;
+			left: 0;
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			z-index: 3;
+
+			.userSearch {
+				width: 100%;
+
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				height: 60px;
+				font-weight: bold;
+				background-color: white;
+				color: black;
+
+				.inpuContainer {
+					width: 100%;
+					height: 40px;
+					display: flex;
+					align-items: center;
+					border: 1px solid gray;
+					border-radius: 16px;
+					background-color: gray;
+					cursor: pointer;
+
+					input {
+						width: 100%;
+						outline: none;
+						border: none;
+						background-color: inherit;
+
+						&::placeholder {
+							font-weight: bold;
+							color: black;
+						}
+					}
+				}
+			}
+		}
+
+		.middle {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			font-weight: 500;
+			background-color: gray;
+			padding: 10px;
+			border-radius: 8px;
+			margin-top: 10px;
+
+			.title {
+				font-size: 18px;
+				font-weight: 600;
+			}
+
+			.btn {
+				display: flex;
+				align-items: center;
+				gap: 4px;
+				background-color: #061924d0;
+				color: white;
+				padding: 8px;
+				border-radius: 8px;
+				cursor: pointer;
+			}
+		}
+
+		.bottom {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+		}
+
+		.noChats {
+			text-align: center;
+			font-size: 24px;
+		}
+	}
+}

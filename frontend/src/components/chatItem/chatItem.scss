@@ -1,0 +1,47 @@
+.chatItem {
+	display: flex;
+	flex-direction: column;
+	background-color: #061924d0;
+	color: white;
+	padding: 3px 6px;
+	border-radius: 8px;
+	cursor: pointer;
+
+	&:hover {
+		background-color: teal;
+		color: white;
+	}
+
+	.chatItemTop {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		.left {
+			position: relative;
+
+			img {
+				width: 30px;
+				height: 30px;
+				object-fit: cover;
+				border-radius: 50%;
+				border: 2px solid crimson;
+			}
+
+			.online {
+				position: absolute;
+				top: 20px;
+				left: 22px;
+				width: 10px;
+				height: 10px;
+				border-radius: 50%;
+				background-color: green;
+				border: 1px solid white;
+			}
+		}
+
+		.right {
+			font-weight: 500;
+		}
+	}
+}

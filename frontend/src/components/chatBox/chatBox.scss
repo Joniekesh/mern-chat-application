@@ -1,0 +1,234 @@
+// @import "../../global.scss";
+
+.chatBox {
+	flex: 3;
+	height: 100vh;
+
+	// @include mobile {
+	// 	width: 100%;
+	// }
+
+	.container {
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+
+		.top {
+			width: 100%;
+			height: 60px;
+			background-color: white;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			text-align: center;
+			padding: 0px 10px;
+
+			.arrow {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+
+				.arrowItem {
+					font-weight: bold;
+					cursor: pointer;
+					color: #0c1d27;
+					font-size: 24px;
+				}
+
+				.imgDiv {
+					position: relative;
+
+					img {
+						width: 34px;
+						height: 34px;
+						border-radius: 50%;
+						border: 2px solid crimson;
+					}
+
+					.online {
+						position: absolute;
+						top: 18px;
+						left: 26px;
+						width: 10px;
+						height: 10px;
+						background-color: green;
+						border-radius: 50%;
+					}
+				}
+			}
+
+			h2 {
+				color: #0c1d27;
+			}
+
+			.info {
+				font-size: 24px;
+				font-weight: bold;
+				cursor: pointer;
+				color: #0c1d27;
+			}
+		}
+
+		.center {
+			padding: 10px;
+			height: 505px;
+			overflow-y: scroll;
+
+			.messages {
+				display: flex;
+				flex-direction: column;
+				gap: 6px;
+
+				.messageItem {
+					position: relative;
+					display: flex;
+					flex-direction: column;
+					max-width: 400px;
+					height: max-content;
+					// background-color: #303e2b;
+					// background-color: #525255;
+					// background-color: #4b5c77;
+					background-color: #184c34;
+
+					color: white;
+					border-radius: 0px 20px 20px 20px;
+					padding: 10px;
+					gap: 6px;
+					font-size: 14px;
+
+					&.current {
+						align-self: flex-end;
+						background-color: teal;
+						color: white;
+						border-radius: 20px 0px 20px 20px;
+					}
+
+					img {
+						height: 150px;
+						border-radius: 10px;
+						width: 98%;
+						object-fit: cover;
+					}
+
+					.messengerName {
+						font-size: 16px;
+						font-weight: 600;
+						// color: #0c1d27;
+					}
+
+					.text {
+						width: 100%;
+						word-wrap: break-word;
+						font-size: 15px;
+					}
+
+					.time {
+						align-self: flex-end;
+						font-weight: 500;
+						font-size: 13px;
+						color: white;
+						opacity: 0.7;
+						font-size: 12px;
+					}
+
+					.ellipsis {
+						position: absolute;
+						top: 0px;
+						right: 0px;
+						cursor: pointer;
+						font-size: 18px;
+					}
+
+					.remove {
+						position: absolute;
+						right: 14px;
+						top: 4px;
+						background-color: crimson;
+						width: 100px;
+						padding: 20px 10px;
+						border-radius: 6px;
+						display: flex;
+						justify-content: space-between;
+
+						.del,
+						.icon {
+							color: white;
+							font-size: 13px;
+							font-weight: 500;
+							cursor: pointer;
+						}
+					}
+				}
+			}
+
+			.empty {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				height: 100%;
+				font-size: 24px;
+				opacity: 0.5;
+				text-align: center;
+			}
+		}
+
+		.bottom {
+			height: 60px;
+			background-color: rgb(150, 148, 148);
+			position: sticky;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+
+			form {
+				width: 100%;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				border: 2px solid #0c1d27;
+
+				textarea {
+					flex: 5;
+					height: 100%;
+					width: 100%;
+					outline: none;
+					border: none;
+					font-size: 16px;
+					background-color: rgb(231, 231, 231);
+				}
+
+				.actions {
+					flex: 1;
+					display: flex;
+					align-items: center;
+					gap: 20px;
+					background-color: darkblue;
+					height: 100%;
+
+					label {
+						display: flex;
+						align-items: center;
+
+						span {
+							font-size: 24px;
+							cursor: pointer;
+							color: green;
+							margin-left: 10px;
+						}
+					}
+
+					button {
+						cursor: pointer;
+						border: none;
+						padding: 6px;
+						background-color: teal;
+						color: white;
+						margin-right: 10px;
+						border-radius: 6px;
+					}
+				}
+			}
+		}
+	}
+}

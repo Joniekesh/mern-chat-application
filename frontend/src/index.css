@@ -1,0 +1,42 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: "Montserrat", sans-serif;
+	background: url("../public/assets/bg2.jpg");
+	color: white;
+	overflow-x: hidden;
+}
+
+.line {
+	margin: 10px 0;
+	opacity: 0.3;
+}
+
+.link {
+	text-decoration: none;
+	color: inherit;
+}
+
+/* width */
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: teal;
+}

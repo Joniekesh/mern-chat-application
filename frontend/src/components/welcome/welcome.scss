@@ -1,0 +1,30 @@
+@import "../../global.scss";
+
+.welcome {
+	height: 100vh;
+	flex: 4;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+
+	.top {
+		width: 100%;
+		height: 60px;
+		background-color: white;
+		color: #333;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.bottom {
+		height: calc(100vh - 60px);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	@include mobile {
+		display: none;
+	}
+}
