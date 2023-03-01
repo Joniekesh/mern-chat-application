@@ -17,10 +17,9 @@ import { getUsers, loadUser } from "./redux/UserApi";
 import { io } from "socket.io-client";
 import SingleChat from "./pages/singleChat/SingleChat";
 import { getChats } from "./redux/ChatApi";
-import { isOnline } from "./utils/onlineUser";
 
 var socket;
-const ENDPOINT = "http://localhost:5000";
+const ENDPOINT = "https://mern-chat-app-7njr.onrender.com";
 
 const App = () => {
 	const dispatch = useDispatch();
