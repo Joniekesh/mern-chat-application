@@ -25,7 +25,7 @@ app.use(cors());
 const server = http.createServer(app);
 const io = new Server(server, {
 	pingTimeout: 60000,
-	cors: { origin: "https://joniechat.netlify.app/" },
+	cors: { origin: "https://joniechat.netlify.app" },
 });
 
 io.on("connection", (socket) => {
