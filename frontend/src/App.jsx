@@ -17,6 +17,7 @@ import { getUsers, loadUser } from "./redux/UserApi";
 import { io } from "socket.io-client";
 import SingleChat from "./pages/singleChat/SingleChat";
 import { getChats } from "./redux/ChatApi";
+import ResetPassword from "./pages/resetPassword/ResetPassword";
 
 var socket;
 const ENDPOINT = "https://mern-chat-app-7njr.onrender.com";
@@ -93,6 +94,10 @@ const App = () => {
 						element={loggedinUser ? <Home /> : <SignIn />}
 					></Route>
 					<Route path="/forgotpassword" element={<ForgotPassword />}></Route>
+					<Route
+						path="/passwordreset/:resetToken"
+						element={<ResetPassword />}
+					></Route>
 				</Routes>
 			</Router>
 		</div>

@@ -16,7 +16,7 @@ const ChatSlice = createSlice({
 			state.loading = false;
 			state.chats = action.payload;
 		},
-		getChatsFailure: (state) => {
+		getChatsFailure: (state, action) => {
 			state.loading = false;
 			state.error = action.payload;
 		},

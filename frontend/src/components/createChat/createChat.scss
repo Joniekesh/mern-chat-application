@@ -1,3 +1,5 @@
+@import "../../global.scss";
+
 .createChat {
 	position: fixed;
 	display: flex;
@@ -17,6 +19,10 @@
 		display: flex;
 		align-items: center;
 		border-radius: 8px;
+
+		@include mobile {
+			width: 96%;
+		}
 
 		.innerContainer {
 			position: relative;
@@ -109,6 +115,10 @@
 					border-radius: 14px;
 					font-size: 15px;
 					outline: none;
+
+					@include mobile {
+						margin-top: 26px;
+					}
 				}
 
 				.createBtn {

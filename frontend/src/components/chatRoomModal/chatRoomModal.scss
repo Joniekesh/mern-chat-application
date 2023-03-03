@@ -1,3 +1,5 @@
+@import "../../global.scss";
+
 .chatRoomModal {
 	position: fixed;
 	top: 0;
@@ -21,6 +23,10 @@
 		border-radius: 10px;
 		padding: 6px 10px;
 		overflow-y: scroll;
+
+		@include mobile {
+			width: 96%;
+		}
 
 		.topContainer {
 			display: flex;

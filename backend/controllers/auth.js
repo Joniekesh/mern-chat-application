@@ -109,7 +109,7 @@ export const forgotPassword = async (req, res) => {
 		await user.save();
 
 		// Create Reset URL to email to provided email address
-		const resetUrl = `http://localhost:5000/api/resetpassword/${resetToken}`;
+		const resetUrl = `https://joniechat.netlify.app/passwordreset/${resetToken}`;
 
 		//HTML Message
 		const message = `
@@ -142,7 +142,7 @@ export const forgotPassword = async (req, res) => {
 };
 
 // @desc   Reset Password
-// @route  POST /api/auth/:resetToken
+// @route  PUT /api/auth/:resetToken
 // @access Public
 export const resetPassword = async (req, res) => {
 	// Compare token in url to hashed token
