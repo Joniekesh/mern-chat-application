@@ -5,6 +5,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { axiosInstance } from "../../utils/axiosInstance";
 import { getChats } from "../../redux/ChatApi";
+import { useNavigate } from "react-router-dom";
 
 const CreateChat = ({ setOpen }) => {
 	const [selectedUsers, setSelectedUsers] = useState([]);

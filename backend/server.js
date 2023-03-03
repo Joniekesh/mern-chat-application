@@ -12,6 +12,7 @@ import {
 	addUser,
 	getOnlineUsers,
 	removeUser,
+	getUser,
 } from "./utils/socketHelperFunction.js";
 
 import { Server } from "socket.io";
@@ -24,7 +25,7 @@ app.use(cors());
 
 const server = http.createServer(app);
 const io = new Server(server, {
-	cors: { origin: "https://joniechat.netlify.app" },
+	cors: { origin: "https://joniechat.netlify.app/" },
 });
 
 io.on("connection", (socket) => {
@@ -34,6 +35,13 @@ io.on("connection", (socket) => {
 		// Online users
 		const onlineUsers = getOnlineUsers();
 		socket.emit("onlineUsers", onlineUsers);
+	});
+
+	// Create message
+	socket.on("sendMessage", ({ newMessage, receiver }) => {
+		const friend = getUser(receiver._id);
+
+		socket.to(friend?.socketId).emit("receiveMessage", newMessage);
 	});
 
 	// Disconnect

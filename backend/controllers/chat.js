@@ -163,10 +163,7 @@ export const leaveChat = async (req, res) => {
 				{ $pull: { members: req.body.userId } },
 				{ new: true }
 			);
-			return res.status(200).json({
-				msg: "You have left the chat room.",
-				chatMember,
-			});
+			return res.status(200).json("You have left the chat room.");
 		}
 	} catch (err) {
 		res.status(500).json(err);

@@ -2,9 +2,13 @@ import "./userList.scss";
 import { MdCancel } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import { axiosInstance } from "../../utils/axiosInstance";
+import { useNavigate } from "react-router-dom";
 
 const UserList = ({ setOpenUserSearch }) => {
 	const [search, setSearch] = useState("");
+
+	const { currentUser } = useSelector((state) => state.auth);
 
 	const { userInfo, users } = useSelector((state) => state.user);
 	const me = userInfo?.user;
@@ -16,6 +20,32 @@ const UserList = ({ setOpenUserSearch }) => {
 			user.firstName.toLowerCase().includes(search)
 		) ||
 		guestUsers.filter((user) => user.lastName.toLowerCase().includes(search));
+
+	const config = {
+		headers: {
+			Authorization: `Bearer ${currentUser?.token}`,
+		},
+	};
+
+	const navigate = useNavigate();
+	const createPrivateChat = async (friendId) => {
+		try {
+			const res = await axiosInstance.post(
+				`/chats/${me._id}/${friendId}`,
+				{ senderId: me._id, receiverId: friendId },
+				config
+			);
+
+			if (res.status === 200) {
+				navigate(`/chats/${res.data._id}`);
+				setOpenUserSearch(false);
+			}
+
+			// console.log(res.data);
+		} catch (err) {
+			console.log(err);
+		}
+	};
 
 	return (
 		<div className="uList">
@@ -33,7 +63,7 @@ const UserList = ({ setOpenUserSearch }) => {
 					{search.length > 0 && (
 						<ul>
 							{filteredUsers.map((user) => (
-								<div key={user._id}>
+								<div key={user._id} onClick={() => createPrivateChat(user._id)}>
 									<li>
 										<div className="imgDiv">
 											<img src={user.profilePic} alt="" />

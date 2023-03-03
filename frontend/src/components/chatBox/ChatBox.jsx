@@ -7,20 +7,24 @@ import { format } from "timeago.js";
 import { BsCardImage } from "react-icons/bs";
 import { FaEllipsisV } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { BsArrowLeftCircleFill, BsFillEyeFill } from "react-icons/bs";
+import { BsArrowLeftCircleFill } from "react-icons/bs";
 import ChatRoomModal from "../../components/chatRoomModal/ChatRoomModal";
+import { toast } from "react-toastify";
 
 import { axiosInstance } from "../../utils/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import { isOnline } from "../../utils/onlineUser";
 
-const ChatBox = ({ chat, onlineUsers }) => {
+const ChatBox = ({ chat, onlineUsers, socket }) => {
 	const [text, setText] = useState("");
 	const [file, setFile] = useState("");
 	const [isDelete, setIsDelete] = useState(false);
 	const [openRoom, setOpenRoom] = useState(false);
+	const [message, setMessage] = useState(null);
 
 	const scrollRef = useRef();
+
+	const { currentUser: user } = useSelector((state) => state.auth);
 
 	const { userInfo } = useSelector((state) => state.user);
 	const currentUser = userInfo?.user;
@@ -51,21 +55,81 @@ const ChatBox = ({ chat, onlineUsers }) => {
 		const uploadRes = await axiosInstance.post("/upload", data);
 		const url = uploadRes.data;
 
-		dispatch(
-			createMessage({
-				sender: currentUser._id,
-				chat: chat._id,
-				img: file ? url : "",
-				text,
-			})
-		);
+		const newMessage = {
+			sender: currentUser._id,
+			chat: chat._id,
+			img: file ? url : "",
+			text,
+		};
+
+		dispatch(createMessage(newMessage));
 		dispatch(getMessages(chat._id));
 		setText("");
 		setFile("");
+
+		socket.emit("sendMessage", { newMessage, receiver: friend });
 	};
+
+	useEffect(() => {
+		socket?.on("receiveMessage", (newMessage) => {
+			setMessage(newMessage);
+		});
+	}, []);
+
+	console.log(message);
 
 	const handleNavigate = () => {
 		navigate("/");
+	};
+
+	const isValidHttpUrl = (string) => {
+		let url;
+		try {
+			url = new URL(string);
+		} catch (_) {
+			return false;
+		}
+		return url.protocol === "http:" || url.protocol === "https:";
+	};
+
+	const config = {
+		headers: {
+			Authorization: `Bearer ${user?.token}`,
+		},
+	};
+
+	const joinChat = async (chat) => {
+		try {
+			const res = await axiosInstance.put(
+				`/chats/${chat}`,
+				{
+					members: currentUser._id,
+				},
+				config
+			);
+
+			console.log(res.data);
+		} catch (err) {
+			console.log(err.response.data);
+		}
+	};
+
+	const leaveChat = async (chatId) => {
+		try {
+			const res = await axiosInstance.put(
+				`/chats/${chatId}/leave`,
+				{
+					userId: currentUser._id,
+				},
+				config
+			);
+			if (res.status === 200) {
+				toast.success(res.data, { theme: "colored" });
+				navigate("/");
+			}
+		} catch (err) {
+			toast.error(err.response.data, { theme: "colored" });
+		}
 	};
 
 	const online = isOnline(onlineUsers, friend?._id);
@@ -79,7 +143,7 @@ const ChatBox = ({ chat, onlineUsers }) => {
 							<BsArrowLeftCircleFill />
 						</span>
 						{chat && (
-							<div className="imgDiv">
+							<div className="imgDiv" onClick={() => setOpenRoom(true)}>
 								<img
 									src={chat?.isGroupChat ? chat.chatImg : friend?.profilePic}
 									alt=""
@@ -97,10 +161,10 @@ const ChatBox = ({ chat, onlineUsers }) => {
 					) : (
 						<h2>Jonie Chat App</h2>
 					)}
-					{chat && (
-						<span className="info" onClick={() => setOpenRoom(true)}>
-							<BsFillEyeFill />
-						</span>
+					{chat?.isGroupChat && (
+						<button className="leave" onClick={() => leaveChat(chat._id)}>
+							Leave
+						</button>
 					)}
 				</div>
 
@@ -125,7 +189,20 @@ const ChatBox = ({ chat, onlineUsers }) => {
 													message.sender.lastName}
 											</span>
 										)}
-									<p className="text">{message.text}</p>
+									{message.text && isValidHttpUrl(message.text) ? (
+										<a
+											href={message.text}
+											onClick={() => joinChat(message.chat)}
+										>
+											<p className="text">
+												{message.text.substring(0, 27)}
+												<br></br>
+												{message.text.substring(27)}
+											</p>
+										</a>
+									) : (
+										<p className="text">{message.text}</p>
+									)}
 									<span className="time">{format(message.createdAt)}</span>
 									{message.sender?._id === currentUser?._id && (
 										<span

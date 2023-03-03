@@ -101,6 +101,23 @@
 						font-weight: bold;
 					}
 				}
+
+				.delRoom {
+					width: 200px;
+					border: none;
+					cursor: pointer;
+					background-color: crimson;
+					color: white;
+					font-weight: 600;
+					padding: 8px;
+					border-radius: 5px;
+					margin-bottom: 10px;
+					transition: all 0.5s ease-in-out;
+
+					&:hover {
+						transform: scale(1.03);
+					}
+				}
 			}
 		}
 
@@ -163,6 +180,15 @@
 
 					.admin {
 						font-size: 12px;
+					}
+
+					.removeUser {
+						background-color: crimson !important;
+						color: white;
+						padding: 4px;
+						border: none;
+						font-size: 12px;
+						cursor: pointer;
 					}
 				}
 			}

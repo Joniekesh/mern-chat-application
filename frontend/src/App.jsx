@@ -20,6 +20,7 @@ import { getChats } from "./redux/ChatApi";
 
 var socket;
 const ENDPOINT = "https://mern-chat-app-7njr.onrender.com";
+// const ENDPOINT = "http://localhost:5000";
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -69,7 +70,7 @@ const App = () => {
 						path="/chats/:id"
 						element={
 							<PrivateRoute>
-								<SingleChat onlineUsers={onlineUsers} />
+								<SingleChat onlineUsers={onlineUsers} socket={socket} />
 							</PrivateRoute>
 						}
 					></Route>
