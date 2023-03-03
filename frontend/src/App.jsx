@@ -59,7 +59,7 @@ const App = () => {
 	}, []);
 
 	return (
-		<>
+		<div className="app">
 			<div>
 				<ToastContainer />
 			</div>
@@ -95,7 +95,7 @@ const App = () => {
 					<Route path="/forgotpassword" element={<ForgotPassword />}></Route>
 				</Routes>
 			</Router>
-		</>
+		</div>
 	);
 };
 
