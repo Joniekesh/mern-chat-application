@@ -8,10 +8,6 @@
 	overflow-y: scroll;
 	z-index: 3;
 
-	// @include mobile {
-	// 	width: 100%;
-	// }
-
 	.container {
 		background-color: white;
 		height: max-content;
@@ -29,7 +25,175 @@
 			display: flex;
 			flex-direction: column;
 			z-index: 3;
-			background-color: teal;
+			background-color: #000080;
+
+			.appLogo {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				color: white;
+				padding: 10px;
+
+				.notification {
+					position: relative;
+					cursor: pointer;
+					display: none;
+
+					@include responsive833 {
+						display: flex;
+					}
+
+					.nCount {
+						position: absolute;
+						top: -6px;
+						left: 10px;
+						background-color: crimson;
+						color: white;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						text-align: center;
+						border-radius: 50%;
+						height: 14px;
+						width: 14px;
+						padding: 6px;
+						font-size: 12px;
+					}
+				}
+
+				.right {
+					position: relative;
+					display: flex;
+					align-items: center;
+					gap: 10px;
+					display: none;
+
+					@include responsive833 {
+						display: flex;
+					}
+
+					.imgDiv {
+						position: relative;
+
+						img {
+							width: 34px;
+							height: 34px;
+							border-radius: 50%;
+							object-fit: cover;
+							border: 2px solid crimson;
+						}
+
+						.online {
+							width: 10px;
+							height: 10px;
+							background-color: green;
+							border-radius: 50%;
+							position: absolute;
+							top: 20px;
+							left: 26px;
+						}
+					}
+
+					.profile {
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						flex-direction: column;
+						background-color: teal;
+						padding: 10px;
+						position: absolute;
+						top: 58px;
+						right: -10px;
+						gap: 16px;
+						border-radius: 6px;
+						width: 200px;
+
+						.viewBtn {
+							width: 100%;
+							text-align: center;
+							background-color: #0c1d27;
+							color: white;
+							cursor: pointer;
+							border: none;
+							padding: 8px;
+							border-radius: 8px;
+							transition: all 0.5s ease-in-out;
+
+							&:hover {
+								transform: scale(1.01);
+							}
+						}
+
+						.logoutBtn {
+							border: none;
+							width: 100%;
+							background-color: crimson;
+							color: white;
+							padding: 6px;
+							cursor: pointer;
+							padding: 8px;
+							border-radius: 8px;
+							transition: all 0.5s ease-in-out;
+
+							&:hover {
+								transform: scale(1.01);
+							}
+						}
+					}
+
+					.nContainer {
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						position: absolute;
+						top: 58px;
+						right: -10px;
+						background-color: teal;
+						width: max-content;
+						height: max-content;
+						border-radius: 8px;
+						padding: 6px;
+
+						.nWrapper {
+							width: 100%;
+							height: 100%;
+
+							.list {
+								display: flex;
+								flex-direction: column;
+								gap: 10px;
+
+								.listItem {
+									background-color: white;
+									color: #333;
+									padding: 6px;
+									border-radius: 8px;
+									font-weight: 500;
+									font-size: 14px;
+									cursor: pointer;
+								}
+							}
+
+							.clearBtn {
+								width: 100%;
+								margin-top: 10px;
+								border: none;
+								cursor: pointer;
+								background-color: crimson;
+								color: white;
+								padding: 6px;
+								font-weight: 500;
+								border-radius: 8px;
+								transition: all 0.5s ease-in-out;
+
+								&:hover {
+									transform: scale(1.02);
+								}
+							}
+						}
+					}
+				}
+			}
 
 			.userSearch {
 				width: 100%;
@@ -39,7 +203,6 @@
 				gap: 8px;
 				height: 60px;
 				font-weight: bold;
-				// background-color: white;
 				color: black;
 
 				.inpuContainer {

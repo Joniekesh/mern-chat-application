@@ -25,6 +25,12 @@ const ChatSlice = createSlice({
 			state.loading = false;
 			state.chat = action.payload;
 		},
+		removeChatMember: (state, action) => {
+			state.chat.members.splice(
+				state.chat.members.findIndex((_id) => _id === action.payload),
+				1
+			);
+		},
 
 		createGroupChatRequest: (state) => {
 			state.loading = true;
@@ -37,6 +43,10 @@ const ChatSlice = createSlice({
 			state.loading = false;
 			state.error = action.payload;
 		},
+		clearChats: (state) => {
+			state.chats = [];
+			state.chat = null;
+		},
 	},
 });
 
@@ -45,8 +55,10 @@ export const {
 	getChatsSuccess,
 	getChatsFailure,
 	getChatSuccess,
+	removeChatMember,
 	createGroupChatRequest,
 	createGroupChatSuccess,
 	createGroupChatFailure,
+	clearChats,
 } = ChatSlice.actions;
 export default ChatSlice.reducer;

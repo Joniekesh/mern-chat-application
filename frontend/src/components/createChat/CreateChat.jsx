@@ -6,11 +6,13 @@ import { toast } from "react-toastify";
 import { axiosInstance } from "../../utils/axiosInstance";
 import { getChats } from "../../redux/ChatApi";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../components/loader/Loader";
 
 const CreateChat = ({ setOpen }) => {
 	const [selectedUsers, setSelectedUsers] = useState([]);
 	const [search, setSearch] = useState("");
 	const [chatName, setChatName] = useState("");
+	const [loading, setLoading] = useState(false);
 
 	const { users } = useSelector((state) => state.user);
 
@@ -71,15 +73,17 @@ const CreateChat = ({ setOpen }) => {
 				{ theme: "colored" }
 			);
 		}
-
+		setLoading(true);
 		try {
 			const res = await axiosInstance.post("/chats", newGroupChat, config);
 			if (res.status === 200) {
 				dispatch(getChats());
 				toast.success("Chat successfully created.", { theme: "colored" });
 			}
+			setLoading(false);
 		} catch (err) {
 			toast.error(err.response.data, { theme: "colored" });
+			setLoading(false);
 		}
 
 		setOpen(false);
@@ -124,7 +128,7 @@ const CreateChat = ({ setOpen }) => {
 							onChange={(e) => setSearch(e.target.value.toLowerCase())}
 						/>
 						<button type="submit" className="createBtn">
-							CREATE
+							{loading ? <Loader /> : "CREATE"}
 						</button>
 					</form>
 					{search.length > 0 && (

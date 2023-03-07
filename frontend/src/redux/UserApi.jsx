@@ -4,7 +4,11 @@ import {
 	getUsersFailure,
 	getUsersRequest,
 	getUsersSuccess,
+	updateUserFailure,
+	updateUserRequest,
+	updateUserSuccess,
 } from "./UserRedux";
+import { toast } from "react-toastify";
 
 export const loadUser = () => async (dispatch, getState) => {
 	const {

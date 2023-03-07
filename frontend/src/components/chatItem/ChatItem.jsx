@@ -1,11 +1,9 @@
-import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { isOnline } from "../../utils/onlineUser";
 import "./chatItem.scss";
 
-const ChatItem = ({ chat, onlineUsers }) => {
-	const [active, setActive] = useState(null);
+const ChatItem = ({ chat, onlineUsers, iscChat, setIsChat }) => {
 	const navigate = useNavigate();
 
 	const { userInfo } = useSelector((state) => state.user);
@@ -17,6 +15,7 @@ const ChatItem = ({ chat, onlineUsers }) => {
 
 	const handleNavigate = () => {
 		navigate(`/chats/${chat._id}`);
+		setIsChat(true);
 	};
 
 	const online = isOnline(onlineUsers, friend?._id);
@@ -26,7 +25,11 @@ const ChatItem = ({ chat, onlineUsers }) => {
 			<div className="chatItemTop">
 				<div className="left">
 					<img
-						src={chat?.isGroupChat ? chat?.chatImg : friend?.profilePic}
+						src={
+							chat?.isGroupChat
+								? chat?.chatImg
+								: "/assets/" + friend?.profilePic || "https://bit.ly/3VlFEBJ"
+						}
 						alt=""
 					/>
 					{online && <span className="online"></span>}

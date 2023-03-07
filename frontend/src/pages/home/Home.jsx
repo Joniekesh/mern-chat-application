@@ -10,7 +10,6 @@ const Home = () => {
 	const [isSearch, setIsSearch] = useState(false);
 	const [openRoom, setOpenRoom] = useState(false);
 	const [isProfile, setIsProfile] = useState(false);
-	const [showChatHeads, setShowChatHeads] = useState(false);
 
 	return (
 		<>

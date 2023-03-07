@@ -237,7 +237,7 @@ export const updateChatRoom = async (req, res) => {
 				{ new: true }
 			);
 
-			res.status(200).json({ msg: "Chat Updated", updatedChat });
+			res.status(200).json(updatedChat);
 		} else {
 			res.status(401).json("You are not allowed to update this chat room");
 		}
@@ -263,11 +263,9 @@ export const removeUser = async (req, res) => {
 			);
 
 			await chat.save();
-			res.status(200).json({ msg: "User Removed", chat });
+			res.status(200).json("User Removed!");
 		} else {
-			res
-				.status(401)
-				.json({ msg: "You are not allowed to update this chat room" });
+			res.status(401).json("You are not allowed to update this chat room");
 		}
 	} catch (err) {
 		res.status(500).json(err);

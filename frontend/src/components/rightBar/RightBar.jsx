@@ -9,6 +9,8 @@ import { logout } from "../../redux/AuthRedux";
 import { clearUser } from "../../redux/UserRedux";
 import Profile from "../profile/Profile";
 import { isOnline } from "../../utils/onlineUser";
+import { clearChats } from "../../redux/ChatRedux";
+import { clearMessages } from "../../redux/MessageRedux";
 
 const RightBar = ({ chat, onlineUsers }) => {
 	const [openNotification, setOpenNotification] = useState(false);
@@ -20,7 +22,7 @@ const RightBar = ({ chat, onlineUsers }) => {
 
 	const friend =
 		!chat?.isGroupChat &&
-		chat?.members.find((member) => member._id !== currentUser._id);
+		chat?.members.find((member) => member?._id !== currentUser?._id);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -28,6 +30,8 @@ const RightBar = ({ chat, onlineUsers }) => {
 	const handleLogout = () => {
 		dispatch(logout());
 		dispatch(clearUser());
+		dispatch(clearChats());
+		dispatch(clearMessages());
 	};
 
 	const online = isOnline(onlineUsers, currentUser?._id);
@@ -44,7 +48,12 @@ const RightBar = ({ chat, onlineUsers }) => {
 						<span>9</span>
 					</div>
 					<div className="rbImgDiv">
-						<img src={currentUser?.profilePic} alt="" />
+						<img
+							src={
+								"/assets/" + currentUser?.profilePic || currentUser?.profilePic
+							}
+							alt=""
+						/>
 						{online && <span className="online"></span>}
 					</div>
 					<FaEllipsisV

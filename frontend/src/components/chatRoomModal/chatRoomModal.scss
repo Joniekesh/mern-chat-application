@@ -32,6 +32,18 @@
 			display: flex;
 			flex-direction: column;
 
+			.cancel {
+				width: 100px;
+				align-self: flex-end;
+				border: none;
+				background-color: crimson;
+				color: white;
+				padding: 5px;
+				cursor: pointer;
+				font-weight: 500;
+				border-radius: 5px;
+			}
+
 			.close {
 				position: absolute;
 				top: 10px;
@@ -44,11 +56,54 @@
 				position: absolute;
 				top: 10px;
 				right: 10px;
+				font-size: 14px;
+				border-radius: 5px;
+				background-color: teal;
+				color: white;
+				font-weight: 500;
+				border: none;
+				padding: 6px;
+				transition: all 0.6s ease-in-out;
 				cursor: pointer;
-				font-size: 24px;
-				border-radius: 10px;
-				color: teal;
-				font-weight: bold;
+
+				&:hover {
+					transform: scale(1.02);
+				}
+			}
+
+			.selectedUsers {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-wrap: wrap;
+				gap: 10px;
+				margin-top: 10px;
+
+				.selectedUsersItem {
+					display: flex;
+					align-items: center;
+					gap: 6px;
+					background-color: purple;
+					color: white;
+					border-radius: 16px;
+					width: max-content;
+					padding: 3px 6px;
+					font-size: 13px;
+					font-weight: 500;
+
+					img {
+						width: 26px;
+						height: 26px;
+						border-radius: 50%;
+						object-fit: cover;
+						border: 1px solid crimson;
+					}
+
+					.Xmark {
+						cursor: pointer;
+						font-weight: 600;
+					}
+				}
 			}
 
 			.top {
@@ -56,7 +111,23 @@
 				display: flex;
 				align-items: center;
 				flex-direction: column;
-				gap: 4px;
+				gap: 16px;
+				margin-top: 20px;
+
+				.formInput {
+					width: 100%;
+					display: flex;
+					flex-direction: column;
+					gap: 3px;
+
+					label {
+						font-weight: 600;
+					}
+
+					input {
+						padding: 8px;
+					}
+				}
 
 				img {
 					width: 100px;
@@ -109,7 +180,7 @@
 				}
 
 				.delRoom {
-					width: 200px;
+					width: 100%;
 					border: none;
 					cursor: pointer;
 					background-color: crimson;
@@ -122,6 +193,47 @@
 
 					&:hover {
 						transform: scale(1.03);
+					}
+				}
+			}
+
+			.users {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				gap: 6px;
+				overflow-y: scroll;
+
+				.userList {
+					position: relative;
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					cursor: pointer;
+					background-color: teal;
+					color: white;
+					padding: 3px 6px;
+					border-radius: 16px;
+
+					img {
+						width: 30px;
+						height: 30px;
+						border-radius: 50%;
+						object-fit: cover;
+					}
+
+					.userName {
+						font-weight: 500;
+					}
+
+					.online {
+						position: absolute;
+						left: 30px;
+						top: 20px;
+						width: 10px;
+						height: 10px;
+						border-radius: 50%;
+						background-color: green;
 					}
 				}
 			}
@@ -141,12 +253,12 @@
 				color: white;
 				border-radius: 10px;
 				padding: 2px;
-				cursor: pointer;
 
 				.itemLeft {
 					display: flex;
 					align-items: center;
 					gap: 20px;
+					cursor: pointer;
 
 					.bLeft {
 						position: relative;
@@ -186,15 +298,6 @@
 
 					.admin {
 						font-size: 12px;
-					}
-
-					.removeUser {
-						background-color: crimson !important;
-						color: white;
-						padding: 4px;
-						border: none;
-						font-size: 12px;
-						cursor: pointer;
 					}
 				}
 			}

@@ -111,6 +111,8 @@ export const forgotPassword = async (req, res) => {
 		// Create Reset URL to email to provided email address
 		const resetUrl = `https://joniechat.netlify.app/passwordreset/${resetToken}`;
 
+		// const resetUrl = `http://localhost:5173/passwordreset/${resetToken}`;
+
 		//HTML Message
 		const message = `
    <h1>You have requested for a password reset.</h1>

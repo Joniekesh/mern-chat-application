@@ -18,12 +18,15 @@ import { io } from "socket.io-client";
 import SingleChat from "./pages/singleChat/SingleChat";
 import { getChats } from "./redux/ChatApi";
 import ResetPassword from "./pages/resetPassword/ResetPassword";
+import EditProfile from "./components/editProfile/EditProfile";
 
 var socket;
 const ENDPOINT = "https://mern-chat-app-7njr.onrender.com";
 // const ENDPOINT = "http://localhost:5000";
 
 const App = () => {
+	const [isChat, setIsChat] = useState(false);
+
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -71,7 +74,12 @@ const App = () => {
 						path="/chats/:id"
 						element={
 							<PrivateRoute>
-								<SingleChat onlineUsers={onlineUsers} socket={socket} />
+								<SingleChat
+									onlineUsers={onlineUsers}
+									socket={socket}
+									isChat={isChat}
+									setIsChat={setIsChat}
+								/>
 							</PrivateRoute>
 						}
 					></Route>
@@ -98,6 +106,7 @@ const App = () => {
 						path="/passwordreset/:resetToken"
 						element={<ResetPassword />}
 					></Route>
+					<Route path="/editprofile" element={<EditProfile />}></Route>
 				</Routes>
 			</Router>
 		</div>

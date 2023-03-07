@@ -10,7 +10,7 @@ import UserList from "../../components/userList/UserList";
 import { getChatById } from "../../redux/ChatApi";
 import "./singleChat.scss";
 
-const SingleChat = ({ onlineUsers, socket }) => {
+const SingleChat = ({ onlineUsers, isChat, setIsChat, socket }) => {
 	const [isSearch, setIsSearch] = useState(false);
 	const [openRoom, setOpenRoom] = useState(false);
 	const [isProfile, setIsProfile] = useState(false);
@@ -27,9 +27,19 @@ const SingleChat = ({ onlineUsers, socket }) => {
 	return (
 		<div>
 			<div className="singleChat">
-				<Chats onlineUsers={onlineUsers} />
+				<Chats
+					onlineUsers={onlineUsers}
+					isChat={isChat}
+					setIsChat={setIsChat}
+				/>
 
-				<ChatBox chat={chat} onlineUsers={onlineUsers} socket={socket} />
+				<ChatBox
+					chat={chat}
+					onlineUsers={onlineUsers}
+					socket={socket}
+					isChat={isChat}
+					setIsChat={setIsChat}
+				/>
 				<RightBar chat={chat} onlineUsers={onlineUsers} />
 
 				{isSearch && <UserList setIsSearch={setIsSearch} />}

@@ -8,6 +8,7 @@ import {
 	getChatsRequest,
 	getChatsSuccess,
 	getChatSuccess,
+	removeChatMember,
 } from "./ChatRedux";
 
 export const getChats = () => async (dispatch, getState) => {
@@ -74,5 +75,32 @@ export const createGroupChat = (inputs) => async (dispatch, getState) => {
 	} catch (err) {
 		dispatch(createGroupChatFailure(err.response.data));
 		toast.error(err.response.data, { theme: "colored" });
+	}
+};
+
+export const removeRoomUser = (id, userId) => async (dispatch, getState) => {
+	const {
+		auth: { currentUser },
+	} = getState();
+
+	const config = {
+		headers: {
+			Authorization: `Bearer ${currentUser?.token}`,
+		},
+	};
+
+	try {
+		const res = await axiosInstance.put(
+			`/chats/${id}/removeuser`,
+			{ userId },
+			config
+		);
+		if (res.status === 200) {
+			dispatch(removeChatMember(userId));
+			toast.success(res.data, { theme: "colored" });
+		}
+	} catch (err) {
+		toast.error(err.response.data, { theme: "colored" });
+		console.log(err);
 	}
 };

@@ -1,4 +1,5 @@
 import User from "../models/User.js";
+import { generateToken } from "../utils/generateToken.js";
 
 // @desc   Update user
 // @route  PUT /api/users/me
@@ -25,7 +26,9 @@ export const updateUser = async (req, res) => {
 
 		const updatedUser = await user.save();
 
-		res.status(200).json(updatedUser);
+		res
+			.status(200)
+			.json({ updatedUser, token: generateToken(updatedUser._id) });
 	} catch (error) {
 		console.log(error);
 		res.status(500).json("Server Error!");

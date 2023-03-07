@@ -11,7 +11,7 @@ import Loader from "../../components/loader/Loader";
 const SignUp = () => {
 	const [showPassword, setShowPassword] = useState(false);
 	const [phone, setPhone] = useState("");
-	const [profilePic, setProfilePic] = useState("");
+	const [file, setFile] = useState("");
 	const [loading, setLoading] = useState(false);
 
 	const [inputs, setInputs] = useState({
@@ -40,12 +40,19 @@ const SignUp = () => {
 		if (password !== confirmPassword) {
 			toast.error("Passwords do not match", { theme: "colored" });
 		}
+
+		const data = new FormData();
+		data.append("file", file);
+
+		const uploadRes = await axiosInstance.post("/upload", data);
+		const url = uploadRes.data;
+
 		setLoading(true);
 		try {
 			const res = await axiosInstance.post("/auth", {
 				...inputs,
 				phone,
-				profilePic,
+				profilePic: file && url,
 			});
 			if (res.status === 200) {
 				toast.success(res.data, { theme: "colored" });
@@ -152,11 +159,7 @@ const SignUp = () => {
 									required
 								/>
 							</div>
-							<input
-								type="file"
-								value={profilePic}
-								onChange={(e) => setProfilePic(e.target.files[0])}
-							/>
+							<input type="file" onChange={(e) => setFile(e.target.files[0])} />
 							<button className="login">
 								{loading ? <Loader /> : "SIGN UP"}
 							</button>

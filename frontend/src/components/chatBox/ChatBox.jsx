@@ -15,7 +15,7 @@ import { axiosInstance } from "../../utils/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import { isOnline } from "../../utils/onlineUser";
 
-const ChatBox = ({ chat, onlineUsers, socket }) => {
+const ChatBox = ({ chat, onlineUsers, isChat, setIsChat, socket }) => {
 	const [text, setText] = useState("");
 	const [file, setFile] = useState("");
 	const [isDelete, setIsDelete] = useState(false);
@@ -31,7 +31,7 @@ const ChatBox = ({ chat, onlineUsers, socket }) => {
 
 	const friend =
 		!chat?.isGroupChat &&
-		chat?.members.find((member) => member._id !== currentUser._id);
+		chat?.members.find((member) => member?._id !== currentUser?._id);
 
 	const { messages, loading } = useSelector((state) => state.message);
 
@@ -45,6 +45,20 @@ const ChatBox = ({ chat, onlineUsers, socket }) => {
 	useEffect(() => {
 		dispatch(getMessages(chat?._id));
 	}, [dispatch, chat?._id]);
+
+	const [width, setWidth] = useState(window.innerWidth);
+	const [height, setHeight] = useState(window.innerHeight);
+
+	const updateDimensions = () => {
+		setWidth(window.innerWidth);
+		setHeight(window.innerHeight);
+	};
+	useEffect(() => {
+		window.addEventListener("resize", updateDimensions);
+		return () => window.removeEventListener("resize", updateDimensions);
+	}, []);
+
+	const mobile = width <= 600;
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -80,6 +94,7 @@ const ChatBox = ({ chat, onlineUsers, socket }) => {
 
 	const handleNavigate = () => {
 		navigate("/");
+		setIsChat(false);
 	};
 
 	const isValidHttpUrl = (string) => {
@@ -135,7 +150,10 @@ const ChatBox = ({ chat, onlineUsers, socket }) => {
 	const online = isOnline(onlineUsers, friend?._id);
 
 	return (
-		<div className="chatBox">
+		<div
+			style={{ display: mobile && (isChat ? "block" : "none") }}
+			className="chatBox"
+		>
 			<div className="container">
 				<div className="top">
 					<div className="arrow">
@@ -155,7 +173,7 @@ const ChatBox = ({ chat, onlineUsers, socket }) => {
 					{chat ? (
 						<h2>
 							{chat?.isGroupChat
-								? chat.chatName
+								? chat.chatName.slice(0, 12)
 								: friend.firstName + " " + friend.lastName}
 						</h2>
 					) : (

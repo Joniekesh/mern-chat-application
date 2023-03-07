@@ -33,6 +33,9 @@ const MessageSlice = createSlice({
 		removeMessage: (state, action) => {
 			state.messages = action.payload;
 		},
+		clearMessages: (state, action) => {
+			state.messages = [];
+		},
 	},
 });
 
@@ -44,5 +47,6 @@ export const {
 	createMessageSuccess,
 	createMessageFailure,
 	removeMessage,
+	clearMessages,
 } = MessageSlice.actions;
 export default MessageSlice.reducer;
