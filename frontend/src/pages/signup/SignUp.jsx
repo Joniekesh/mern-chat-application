@@ -52,7 +52,7 @@ const SignUp = () => {
 			const res = await axiosInstance.post("/auth", {
 				...inputs,
 				phone,
-				profilePic: file && url,
+				profilePic: file ? url : "",
 			});
 			if (res.status === 200) {
 				toast.success(res.data, { theme: "colored" });

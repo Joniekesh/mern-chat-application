@@ -122,10 +122,10 @@ const Chats = ({ onlineUsers, isChat, setIsChat }) => {
 						</div>
 					</div>
 					<div className="userSearch" onClick={() => setOpenUserSearch(true)}>
-						<div className="inpuContainer">
+						<span className="inpuContainer">
 							<BiSearch style={{ fontWeight: "bold", fontSize: "24px" }} />
-							<input type="text" placeholder="Search User" disabled />
-						</div>
+							Search Users...
+						</span>
 					</div>
 					<div className="middle">
 						<span className="title">My Chats</span>

@@ -5,7 +5,8 @@ import { generateToken } from "../utils/generateToken.js";
 // @route  PUT /api/users/me
 // @access Private
 export const updateUser = async (req, res) => {
-	const { firstName, lastName, email, phone, password, profilePic } = req.body;
+	const { firstName, lastName, email, phone, password, bio, profilePic } =
+		req.body;
 
 	try {
 		const user = await User.findById(req.user.id);
@@ -18,6 +19,7 @@ export const updateUser = async (req, res) => {
 		user.lastName = lastName || user.lastName;
 		user.email = email || user.email;
 		user.phone = phone || user.phone;
+		user.bio = bio || user.bio;
 		user.profilePic = profilePic || user.profilePic;
 
 		if (password) {

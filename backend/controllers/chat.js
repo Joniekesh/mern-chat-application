@@ -80,6 +80,7 @@ export const getChats = async (req, res) => {
 				"firstName",
 				"lastName",
 				"profilePic",
+				"bio",
 				"email",
 			]);
 
@@ -100,7 +101,13 @@ export const getChatById = async (req, res) => {
 	try {
 		const chat = await Chat.findById(req.params.id)
 			.populate("groupAdmin", ["_id", "firstName", "lastName", "profilePic"])
-			.populate("members", ["firstName", "lastName", "profilePic", "email"]);
+			.populate("members", [
+				"firstName",
+				"lastName",
+				"profilePic",
+				"bio",
+				"email",
+			]);
 
 		if (!chat) return res.status(404).json("Chat not found");
 
@@ -117,7 +124,7 @@ export const joinChat = async (req, res) => {
 	try {
 		const chat = await Chat.findById({
 			_id: req.params.id,
-		}).populate("members", ["firstName", "lastName", "profilePic"]);
+		}).populate("members", ["firstName", "lastName", "profilePic", "bio"]);
 
 		if (!chat) return res.status(404).json("Chat not found");
 
@@ -149,6 +156,7 @@ export const leaveChat = async (req, res) => {
 			"firstName",
 			"lastName",
 			"profilePic",
+			"bio",
 		]);
 
 		if (!chat) return res.status(404).json("Chat not found");
@@ -179,6 +187,7 @@ export const getChatMembers = async (req, res) => {
 			"firstName",
 			"lastName",
 			"profilePic",
+			"bio",
 		]);
 
 		if (!chat) return res.status(404).json("Chat not found");
@@ -253,7 +262,7 @@ export const removeUser = async (req, res) => {
 	try {
 		const chat = await Chat.findById(req.params.id)
 			.populate("groupAdmin", ["firstName", "lastName", "profilePic"])
-			.populate("members", ["firstName", "lastName", "profilePic"]);
+			.populate("members", ["firstName", "lastName", "profilePic", "bio"]);
 
 		if (!chat) return res.status(404).json("Chat not found");
 

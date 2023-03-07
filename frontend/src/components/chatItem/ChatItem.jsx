@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { isOnline } from "../../utils/onlineUser";
 import "./chatItem.scss";
 
-const ChatItem = ({ chat, onlineUsers, iscChat, setIsChat }) => {
+const ChatItem = ({ chat, onlineUsers, isChat, setIsChat }) => {
 	const navigate = useNavigate();
 
 	const { userInfo } = useSelector((state) => state.user);

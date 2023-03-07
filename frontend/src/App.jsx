@@ -18,7 +18,6 @@ import { io } from "socket.io-client";
 import SingleChat from "./pages/singleChat/SingleChat";
 import { getChats } from "./redux/ChatApi";
 import ResetPassword from "./pages/resetPassword/ResetPassword";
-import EditProfile from "./components/editProfile/EditProfile";
 
 var socket;
 const ENDPOINT = "https://mern-chat-app-7njr.onrender.com";
@@ -106,7 +105,6 @@ const App = () => {
 						path="/passwordreset/:resetToken"
 						element={<ResetPassword />}
 					></Route>
-					<Route path="/editprofile" element={<EditProfile />}></Route>
 				</Routes>
 			</Router>
 		</div>

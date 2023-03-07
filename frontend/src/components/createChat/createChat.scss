@@ -13,7 +13,7 @@
 	z-index: 999;
 
 	.container {
-		background-color: gray;
+		background-color: white;
 		width: 50%;
 		height: max-content;
 		display: flex;
@@ -21,7 +21,8 @@
 		border-radius: 8px;
 
 		@include mobile {
-			width: 96%;
+			width: 100%;
+			height: 100%;
 		}
 
 		.innerContainer {

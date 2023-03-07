@@ -173,8 +173,8 @@ const ChatBox = ({ chat, onlineUsers, isChat, setIsChat, socket }) => {
 					{chat ? (
 						<h2>
 							{chat?.isGroupChat
-								? chat.chatName.slice(0, 12)
-								: friend.firstName + " " + friend.lastName}
+								? chat?.chatName.slice(0, 12)
+								: friend?.firstName + " " + friend?.lastName}
 						</h2>
 					) : (
 						<h2>Jonie Chat App</h2>

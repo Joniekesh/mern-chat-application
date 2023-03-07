@@ -25,7 +25,8 @@ export const getProfile = async (req, res) => {
 // @route  POST /api/auth
 // @access Public
 export const register = async (req, res) => {
-	const { firstName, lastName, email, password, phone } = req.body;
+	const { firstName, lastName, email, password, phone, profilePic, bio } =
+		req.body;
 
 	try {
 		const user = await User.findOne({ email });
@@ -42,6 +43,8 @@ export const register = async (req, res) => {
 			email,
 			password,
 			phone,
+			profilePic,
+			bio,
 		});
 
 		await newUser.save();
