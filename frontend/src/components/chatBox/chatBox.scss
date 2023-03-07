@@ -81,7 +81,7 @@
 
 		.center {
 			padding: 10px;
-			height: 505px;
+			height: calc(100vh - 60px);
 			overflow-y: scroll;
 
 			.messages {
@@ -185,9 +185,9 @@
 		.bottom {
 			height: 60px;
 			background-color: rgb(150, 148, 148);
-			position: sticky;
-			bottom: 0;
-			left: 0;
+			// position: sticky;
+			// bottom: 0;
+			// left: 0;
 			width: 100%;
 
 			form {
