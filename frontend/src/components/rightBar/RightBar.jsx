@@ -48,12 +48,7 @@ const RightBar = ({ chat, onlineUsers }) => {
 						<span>9</span>
 					</div>
 					<div className="rbImgDiv">
-						<img
-							src={
-								"/assets/" + currentUser?.profilePic || currentUser?.profilePic
-							}
-							alt=""
-						/>
+						<img src={currentUser?.profilePic} alt="" />
 						{online && <span className="online"></span>}
 					</div>
 					<FaEllipsisV
@@ -95,7 +90,11 @@ const RightBar = ({ chat, onlineUsers }) => {
 							: friend?.firstName + " " + friend?.lastName}
 					</h2>
 					<img
-						src={chat?.isGroupChat ? chat?.chatImg : friend?.profilePic}
+						src={
+							chat?.isGroupChat
+								? chat?.chatImg
+								: friend?.profilePic || "https://bit.ly/3VlFEBJ"
+						}
 						alt=""
 					/>
 					<p>Fullstack developer @ own company</p>

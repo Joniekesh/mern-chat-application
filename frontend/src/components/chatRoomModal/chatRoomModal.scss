@@ -254,11 +254,18 @@
 				border-radius: 10px;
 				padding: 2px;
 
+				&:disabled {
+					cursor: not-allowed;
+				}
+
 				.itemLeft {
 					display: flex;
 					align-items: center;
 					gap: 20px;
-					cursor: pointer;
+
+					&:disabled {
+						cursor: not-allowed;
+					}
 
 					.bLeft {
 						position: relative;
@@ -290,14 +297,22 @@
 							font-weight: 500;
 							font-size: 15px;
 						}
-
-						.text {
-							font-size: 14px;
-						}
 					}
 
 					.admin {
 						font-size: 12px;
+					}
+
+					.remvBtn {
+						background-color: "crimson";
+						color: "white";
+						padding: "4px";
+						border: "none";
+						font-size: "12px";
+
+						&:disabled {
+							cursor: not-allowed;
+						}
 					}
 				}
 			}

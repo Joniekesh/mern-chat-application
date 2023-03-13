@@ -1,10 +1,12 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setIsChat } from "../../redux/ChatRedux";
 import { isOnline } from "../../utils/onlineUser";
 import "./chatItem.scss";
 
-const ChatItem = ({ chat, onlineUsers, isChat, setIsChat }) => {
+const ChatItem = ({ chat, onlineUsers }) => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const { userInfo } = useSelector((state) => state.user);
 	const currentUser = userInfo?.user;
@@ -15,20 +17,20 @@ const ChatItem = ({ chat, onlineUsers, isChat, setIsChat }) => {
 
 	const handleNavigate = () => {
 		navigate(`/chats/${chat._id}`);
-		setIsChat(true);
+		dispatch(setIsChat(true));
 	};
 
 	const online = isOnline(onlineUsers, friend?._id);
 
 	return (
-		<div className="chatItem" onClick={() => handleNavigate()}>
+		<div className="chatItem" onClick={handleNavigate}>
 			<div className="chatItemTop">
 				<div className="left">
 					<img
 						src={
 							chat?.isGroupChat
 								? chat?.chatImg
-								: "/assets/" + friend?.profilePic || "https://bit.ly/3VlFEBJ"
+								: friend?.profilePic || "https://bit.ly/3VlFEBJ"
 						}
 						alt=""
 					/>
@@ -40,7 +42,17 @@ const ChatItem = ({ chat, onlineUsers, isChat, setIsChat }) => {
 						: friend?.firstName + " " + friend?.lastName}
 				</span>
 			</div>
-			<span className="chatItemBottom">Hello...</span>
+			{chat?.latestMessage && (
+				<>
+					{chat.latestMessage?.text.length < 20 ? (
+						<span className="chatItemBottom">{chat.latestMessage?.text}</span>
+					) : (
+						<span className="chatItemBottom">
+							{chat?.latestMessage?.text.slice(0, 20)}...
+						</span>
+					)}
+				</>
+			)}
 		</div>
 	);
 };

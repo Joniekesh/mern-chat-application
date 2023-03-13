@@ -260,8 +260,9 @@
 		.bottom {
 			display: flex;
 			flex-direction: column;
-			gap: 10px;
+			gap: 4px;
 			padding: 10px;
+			padding-top: 0px;
 		}
 
 		.noChats {

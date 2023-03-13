@@ -6,7 +6,9 @@ import { isOnline } from "../../utils/onlineUser";
 import { axiosInstance } from "../../utils/axiosInstance";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { getChatById, removeRoomUser } from "../../redux/ChatApi";
+import { removeRoomUser } from "../../redux/ChatApi";
+import { setIsChat } from "../../redux/ChatRedux";
+import axios from "axios";
 
 const ChatRoomModal = ({ setOpenRoom, chat, onlineUsers }) => {
 	const [text, setText] = useState("");
@@ -24,12 +26,6 @@ const ChatRoomModal = ({ setOpenRoom, chat, onlineUsers }) => {
 
 	const { userInfo, users } = useSelector((state) => state.user);
 	const currentUser = userInfo?.user;
-
-	useEffect(() => {
-		if (!chat.members.some((member) => member._id === currentUser._id)) {
-			navigate("/");
-		}
-	}, []);
 
 	const friend =
 		!chat?.isGroupChat &&
@@ -63,6 +59,7 @@ const ChatRoomModal = ({ setOpenRoom, chat, onlineUsers }) => {
 				if (res.status === 200) {
 					toast.success(res.data, { theme: "colored" });
 					navigate("/");
+					dispatch(setIsChat(false));
 				}
 			} catch (error) {
 				console.log(error);
@@ -106,9 +103,14 @@ const ChatRoomModal = ({ setOpenRoom, chat, onlineUsers }) => {
 
 		const data = new FormData();
 		data.append("file", file);
+		data.append("upload_preset", "upload");
 
-		const uploadRes = await axiosInstance.post("/upload", data);
-		const url = uploadRes.data;
+		const uploadRes = await axios.post(
+			"https://api.cloudinary.com/v1_1/joniekesh/image/upload",
+			data
+		);
+
+		const { url } = uploadRes.data;
 
 		const editGroupChat = {
 			chatName,
@@ -144,8 +146,6 @@ const ChatRoomModal = ({ setOpenRoom, chat, onlineUsers }) => {
 			if (res.status === 200) {
 				navigate(`/chats/${res.data._id}`);
 			}
-
-			console.log(res.data);
 		} catch (err) {
 			console.log(err.response.data);
 		}
@@ -166,11 +166,13 @@ const ChatRoomModal = ({ setOpenRoom, chat, onlineUsers }) => {
 							<MdCancel />
 						</span>
 					)}
-					{chat?.isGroupChat && !isEdit && (
-						<button onClick={() => setIsEdit(true)} className="edit">
-							Edit Room/Add Users
-						</button>
-					)}
+					{chat?.isGroupChat &&
+						!isEdit &&
+						chat?.roomAdmin?._id === currentUser?._id && (
+							<button onClick={() => setIsEdit(true)} className="edit">
+								Edit Room/Add Users
+							</button>
+						)}
 					{chat?.isGroupChat && isEdit && (
 						<div className="selectedUsers">
 							{selectedUsers.map((user) => (
@@ -251,13 +253,13 @@ const ChatRoomModal = ({ setOpenRoom, chat, onlineUsers }) => {
 						)}
 						{!isEdit &&
 						chat?.isGroupChat &&
-						chat.groupAdmin._id === currentUser._id ? (
+						chat.groupAdmin?._id === currentUser?._id ? (
 							<button onClick={deleteRoom} className="delRoom">
 								DELETE ROOM
 							</button>
 						) : (
 							chat?.isGroupChat &&
-							chat.groupAdmin._id === currentUser._id && (
+							chat.groupAdmin?._id === currentUser?._id && (
 								<button
 									type="submit"
 									style={{ backgroundColor: "green", color: "white" }}
@@ -293,10 +295,15 @@ const ChatRoomModal = ({ setOpenRoom, chat, onlineUsers }) => {
 				{!isEdit && chat?.isGroupChat && (
 					<div className="bottom">
 						{chat.members.map((member) => (
-							<div className="item" key={member._id}>
+							<button
+								className="item"
+								key={member?._id}
+								disabled={member?._id === chat.groupAdmin?._id}
+							>
 								<div
 									className="itemLeft"
-									onClick={() => createConversation(member._id)}
+									onClick={() => createConversation(member?._id)}
+									disabled={member?._id === chat.groupAdmin?._id}
 								>
 									<div className="bLeft">
 										<img src={member?.profilePic} alt="" />
@@ -306,30 +313,30 @@ const ChatRoomModal = ({ setOpenRoom, chat, onlineUsers }) => {
 										<span className="uName">
 											{member.firstName + " " + member.lastName}
 										</span>
-										<span className="text">Hello...</span>
 									</div>
 								</div>
 								<div className="itemRight">
-									{member._id === chat.groupAdmin._id && (
+									{member?._id === chat.groupAdmin?._id && (
 										<span className="admin">Admin</span>
 									)}
-									{currentUser._id === chat.groupAdmin._id && (
-										<button
+									{currentUser?._id === chat.groupAdmin?._id && (
+										<span
+											className="remvBtn"
 											style={{
 												backgroundColor: "crimson",
 												color: "white",
 												padding: "4px",
 												border: "none",
 												fontSize: "12px",
-												cursor: "pointer",
 											}}
-											onClick={() => removeUser(member._id)}
+											disabled={member?._id === chat.groupAdmin?._id}
+											onClick={() => removeUser(member?._id)}
 										>
 											Remove User
-										</button>
+										</span>
 									)}
 								</div>
-							</div>
+							</button>
 						))}
 					</div>
 				)}

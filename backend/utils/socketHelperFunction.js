@@ -1,8 +1,9 @@
 let onlineUsers = [];
+let chats = [];
 
-const addUser = (socketId, user) => {
+const addUser = (socketId, userId) => {
 	!onlineUsers.some((user) => user.socketId === socketId) &&
-		onlineUsers.push({ socketId, user });
+		onlineUsers.push({ socketId, userId });
 };
 
 const removeUser = (socketId) => {
@@ -10,11 +11,39 @@ const removeUser = (socketId) => {
 };
 
 const getUser = (userId) => {
-	return onlineUsers.find((user) => user._id === userId);
+	return onlineUsers.find((user) => user.userId === userId);
+};
+
+const updateUser = (room, userId) => {
+	const foundUser = onlineUsers.find((user) => user.userId === userId);
+
+	if (foundUser) {
+		const updatedUser = { ...foundUser, room };
+
+		return updatedUser;
+	}
 };
 
 const getOnlineUsers = () => {
 	return onlineUsers;
 };
 
-export { addUser, getOnlineUsers, removeUser, getUser };
+const joinChat = (room, userId) => {
+	!chats.some((chat) => chat.userId === userId) && chats.push({ room, userId });
+
+	return chats;
+};
+
+const getChat = (room) => {
+	return chats.find((chat) => chat.room === room);
+};
+
+export {
+	addUser,
+	getOnlineUsers,
+	removeUser,
+	getUser,
+	joinChat,
+	getChat,
+	updateUser,
+};

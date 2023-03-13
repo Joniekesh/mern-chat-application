@@ -28,11 +28,11 @@ const UserList = ({ setOpenUserSearch }) => {
 	};
 
 	const navigate = useNavigate();
-	const createPrivateChat = async (friendId) => {
+	const createPrivateChat = async (user) => {
 		try {
 			const res = await axiosInstance.post(
-				`/chats/${me._id}/${friendId}`,
-				{ senderId: me._id, receiverId: friendId },
+				`/chats/${me._id}/${user._id}`,
+				{ senderId: me._id, receiverId: user._id },
 				config
 			);
 
@@ -63,7 +63,7 @@ const UserList = ({ setOpenUserSearch }) => {
 					{search.length > 0 && (
 						<ul>
 							{filteredUsers.map((user) => (
-								<div key={user._id} onClick={() => createPrivateChat(user._id)}>
+								<div key={user._id} onClick={() => createPrivateChat(user)}>
 									<li>
 										<div className="imgDiv">
 											<img src={user.profilePic} alt="" />

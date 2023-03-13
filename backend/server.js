@@ -11,8 +11,11 @@ import multer from "multer";
 import {
 	addUser,
 	getOnlineUsers,
-	removeUser,
 	getUser,
+	removeUser,
+	joinChat,
+	getChat,
+	updateUser,
 } from "./utils/socketHelperFunction.js";
 
 import { Server } from "socket.io";
@@ -25,24 +28,35 @@ app.use(cors());
 
 const server = http.createServer(app);
 const io = new Server(server, {
-	cors: { origin: "https://joniechat.netlify.app" },
+	cors: { origin: "http://localhost:5173" },
 });
-// cors: { origin: "http://localhost:5173" },
+// cors: { origin: "https://joniechat.netlify.app" },
 
 io.on("connection", (socket) => {
-	socket.on("addUser", (user) => {
-		const onlineUser = addUser(socket.id, user);
+	socket.on("addUser", (userId) => {
+		const onlineUser = addUser(socket.id, userId);
 
 		// Online users
 		const onlineUsers = getOnlineUsers();
 		socket.emit("onlineUsers", onlineUsers);
 	});
 
-	// Create message
-	socket.on("sendMessage", ({ newMessage, receiver }) => {
-		const friend = getUser(receiver._id);
+	socket.on("joinChat", ({ room, userId }) => {
+		const user = updateUser(room, userId);
+		if (user) {
+			socket.join(user.room);
 
-		socket.to(friend?.socketId).emit("receiveMessage", newMessage);
+			// console.log("User joined room:" + user.room);
+
+			// Create message
+			socket.on("addMessage", ({ message, chat }) => {
+				// chat.members.forEach((user) => {
+				// 	if (user._id === message.sender) return;
+				// 	// console.log(user, message);
+				socket.to(chat._id).emit("receiveMessage", message);
+				// });
+			});
+		}
 	});
 
 	// Disconnect
@@ -57,22 +71,6 @@ dotenv.config();
 
 // Middlewares
 app.use(express.json());
-
-const storage = multer.diskStorage({
-	destination: function (req, file, cb) {
-		cb(null, "../frontend/public/assets");
-	},
-	filename: function (req, file, cb) {
-		cb(null, Date.now() + file.originalname);
-	},
-});
-
-const upload = multer({ storage: storage });
-
-app.post("/api/upload", upload.single("file"), (req, res) => {
-	const file = req.file;
-	res.status(200).json(file?.filename);
-});
 
 // Routes
 app.use("/api/auth", authRoutes);

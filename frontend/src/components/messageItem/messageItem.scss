@@ -1,0 +1,84 @@
+.messageItem {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	max-width: 250px;
+	height: max-content;
+	// background-color: #303e2b;
+	// background-color: #525255;
+	// background-color: #4b5c77;
+	background-color: #184c34;
+
+	color: white;
+	border-radius: 0px 20px 20px 20px;
+	padding: 10px;
+	gap: 6px;
+	font-size: 14px;
+
+	&.current {
+		align-self: flex-end;
+		background-color: teal;
+		color: white;
+		border-radius: 20px 0px 20px 20px;
+	}
+
+	img {
+		height: 150px;
+		border-radius: 10px;
+		width: 98%;
+		object-fit: cover;
+	}
+
+	.messengerName {
+		font-size: 16px;
+		font-weight: 600;
+		// color: #0c1d27;
+	}
+
+	.text {
+		width: 100%;
+		word-wrap: break-word;
+		font-size: 15px;
+	}
+
+	.time {
+		align-self: flex-end;
+		font-weight: 500;
+		font-size: 13px;
+		color: white;
+		opacity: 0.7;
+		font-size: 12px;
+	}
+
+	.ellipsis {
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		cursor: pointer;
+		font-size: 18px;
+	}
+
+	.remove {
+		position: absolute;
+		right: 14px;
+		top: 4px;
+		background-color: crimson;
+		width: 150px;
+		padding: 20px 10px;
+		border-radius: 6px;
+		display: flex;
+		justify-content: space-between;
+		z-index: 3;
+
+		.del,
+		.icon {
+			color: white;
+			font-size: 13px;
+			font-weight: 500;
+		}
+
+		.icon {
+			cursor: pointer;
+		}
+	}
+}

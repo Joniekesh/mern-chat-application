@@ -1,23 +1,27 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
+import Loader from "../../components/loader/Loader";
 import { axiosInstance } from "../../utils/axiosInstance";
 import "./forgotPassword.scss";
 
 const ForgotPassword = () => {
 	const [email, setEmail] = useState("");
+	const [loading, setLoading] = useState(false);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-
+		setLoading(true);
 		try {
 			const res = await axiosInstance.post("/auth/forgotpassword", { email });
 			if (res.status === 200) {
 				toast.success(res.data, { theme: "colored" });
 				setEmail("");
 			}
+			setLoading(false);
 		} catch (err) {
 			console.log(err);
 			toast.error(err.response.data, { theme: "colored" });
+			setLoading(false);
 		}
 	};
 
@@ -43,7 +47,7 @@ const ForgotPassword = () => {
 								onChange={(e) => setEmail(e.target.value)}
 							/>
 						</div>
-						<button type="submit">SEND</button>
+						<button type="submit">{loading ? <Loader /> : "SEND"}</button>
 					</form>
 				</div>
 			</div>

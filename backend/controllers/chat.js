@@ -82,7 +82,8 @@ export const getChats = async (req, res) => {
 				"profilePic",
 				"bio",
 				"email",
-			]);
+			])
+			.populate("latestMessage");
 
 		if (chats.length === 0) {
 			return res.status(404).json("Chats not found");
@@ -107,7 +108,8 @@ export const getChatById = async (req, res) => {
 				"profilePic",
 				"bio",
 				"email",
-			]);
+			])
+			.populate("latestMessage");
 
 		if (!chat) return res.status(404).json("Chat not found");
 
@@ -122,14 +124,12 @@ export const getChatById = async (req, res) => {
 // @access Private
 export const joinChat = async (req, res) => {
 	try {
-		const chat = await Chat.findById({
-			_id: req.params.id,
-		}).populate("members", ["firstName", "lastName", "profilePic", "bio"]);
+		const chat = await Chat.findById(req.params.id);
 
 		if (!chat) return res.status(404).json("Chat not found");
 
 		const chatMember = chat.members.find(
-			(member) => member._id.toString() === req.body.userId
+			(member) => member.toString() === req.body.userId
 		);
 
 		if (!chatMember) {

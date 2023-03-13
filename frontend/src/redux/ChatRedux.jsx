@@ -5,6 +5,7 @@ const ChatSlice = createSlice({
 	initialState: {
 		chats: [],
 		chat: null,
+		isChat: false,
 		loading: false,
 		error: null,
 	},
@@ -47,6 +48,9 @@ const ChatSlice = createSlice({
 			state.chats = [];
 			state.chat = null;
 		},
+		setIsChat: (state, action) => {
+			state.isChat = action.payload;
+		},
 	},
 });
 
@@ -60,5 +64,6 @@ export const {
 	createGroupChatSuccess,
 	createGroupChatFailure,
 	clearChats,
+	setIsChat,
 } = ChatSlice.actions;
 export default ChatSlice.reducer;

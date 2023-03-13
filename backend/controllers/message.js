@@ -31,10 +31,9 @@ export const createMessage = async (req, res) => {
 		} else {
 			const createdMessage = await newMessage.save();
 
-			// const messages = await Message.find({ chat: req.params.chatId }).populate(
-			// 	"sender",
-			// 	["firstName", "lastName", "profilePic"]
-			// );
+			await Chat.findByIdAndUpdate(req.body.chat, {
+				latestMessage: createdMessage,
+			});
 
 			res.status(200).json(createdMessage);
 		}
@@ -80,7 +79,7 @@ export const getMessages = async (req, res) => {
 };
 
 // @desc  Delete Message
-// @route  DELETE /api/messages/:id/:chatId
+// @route  DELETE /api/messages/:id
 // @access Private
 export const deleteMessage = async (req, res) => {
 	try {
@@ -97,11 +96,11 @@ export const deleteMessage = async (req, res) => {
 		} else {
 			await Message.findByIdAndDelete(req.params.id);
 
-			const messages = await Message.find({ chat: req.params.chatId }).populate(
-				"sender",
-				["firstName", "lastName", "profilePic"]
-			);
-			res.status(200).json(messages);
+			// const messages = await Message.find({ chat: req.params.chatId }).populate(
+			// 	"sender",
+			// 	["firstName", "lastName", "profilePic"]
+			// );
+			res.status(200).json("Message removed.");
 		}
 	} catch (err) {
 		res.status(500).json(err);

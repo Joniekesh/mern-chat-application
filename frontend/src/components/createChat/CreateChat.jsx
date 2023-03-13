@@ -8,7 +8,7 @@ import { getChats } from "../../redux/ChatApi";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../components/loader/Loader";
 
-const CreateChat = ({ setOpen }) => {
+const CreateChat = ({ setOpen, socket }) => {
 	const [selectedUsers, setSelectedUsers] = useState([]);
 	const [search, setSearch] = useState("");
 	const [chatName, setChatName] = useState("");

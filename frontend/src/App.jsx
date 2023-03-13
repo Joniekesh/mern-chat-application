@@ -20,12 +20,11 @@ import { getChats } from "./redux/ChatApi";
 import ResetPassword from "./pages/resetPassword/ResetPassword";
 
 var socket;
-const ENDPOINT = "https://mern-chat-app-7njr.onrender.com";
-// const ENDPOINT = "http://localhost:5000";
+const ENDPOINT = "http://localhost:5000";
+
+// const ENDPOINT = "https://mern-chat-app-7njr.onrender.com";
 
 const App = () => {
-	const [isChat, setIsChat] = useState(false);
-
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -39,6 +38,7 @@ const App = () => {
 
 	const { userInfo } = useSelector((state) => state.user);
 	const user = userInfo?.user;
+	const userId = user?._id;
 
 	const PrivateRoute = ({ children }) => {
 		return loggedinUser ? children : <Navigate to="/signin" />;
@@ -52,7 +52,7 @@ const App = () => {
 	useEffect(() => {
 		socket = io(ENDPOINT);
 
-		socket.emit("addUser", user);
+		socket.emit("addUser", userId);
 	}, [ENDPOINT]);
 
 	useEffect(() => {
@@ -73,12 +73,7 @@ const App = () => {
 						path="/chats/:id"
 						element={
 							<PrivateRoute>
-								<SingleChat
-									onlineUsers={onlineUsers}
-									socket={socket}
-									isChat={isChat}
-									setIsChat={setIsChat}
-								/>
+								<SingleChat onlineUsers={onlineUsers} socket={socket} />
 							</PrivateRoute>
 						}
 					></Route>

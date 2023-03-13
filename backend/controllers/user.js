@@ -70,3 +70,17 @@ export const getUserById = async (req, res) => {
 		res.status(500).json("Server Error!");
 	}
 };
+
+// @desc   Delete user
+// @route  DELETE /api/users/me
+// @access Private
+export const deleteAccount = async (req, res) => {
+	try {
+		await User.findByIdAndDelete(req.user.id);
+
+		res.status(200).json("Account Deleted!");
+	} catch (error) {
+		console.log(error);
+		res.status(500).json("Server Error!");
+	}
+};

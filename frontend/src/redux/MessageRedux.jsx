@@ -4,6 +4,7 @@ const MessageSlice = createSlice({
 	name: "message",
 	initialState: {
 		messages: [],
+		message: null,
 		loading: false,
 		error: null,
 	},
@@ -24,16 +25,19 @@ const MessageSlice = createSlice({
 		},
 		createMessageSuccess: (state, action) => {
 			state.loading = false;
-			state.messages.push(action.payload, ...state.messages);
+			state.message = action.payload;
 		},
 		createMessageFailure: (state, action) => {
 			state.loading = false;
 			state.error = action.payload;
 		},
 		removeMessage: (state, action) => {
-			state.messages = action.payload;
+			state.messages.splice(
+				state.messages.findIndex((_id) => _id === action.payload),
+				1
+			);
 		},
-		clearMessages: (state, action) => {
+		clearMessages: (state) => {
 			state.messages = [];
 		},
 	},

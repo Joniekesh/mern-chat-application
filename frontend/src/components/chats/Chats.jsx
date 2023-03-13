@@ -15,14 +15,14 @@ import { clearUser } from "../../redux/UserRedux";
 import { clearChats } from "../../redux/ChatRedux";
 import { clearMessages } from "../../redux/MessageRedux";
 
-const Chats = ({ onlineUsers, isChat, setIsChat }) => {
+const Chats = ({ onlineUsers, socket }) => {
 	const [open, setOpen] = useState(false);
 	const [openUserSearch, setOpenUserSearch] = useState(false);
 	const [openNotification, setOpenNotification] = useState(false);
 	const [openProfile, setOpenProfile] = useState(false);
 	const [isProfile, setIsProfile] = useState(false);
 
-	const { chats, loading } = useSelector((state) => state.chat);
+	const { chats, isChat, loading } = useSelector((state) => state.chat);
 
 	const { userInfo } = useSelector((state) => state.user);
 	const currentUser = userInfo?.user;
@@ -72,7 +72,7 @@ const Chats = ({ onlineUsers, isChat, setIsChat }) => {
 						</div>
 						<div className="right">
 							<div className="imgDiv">
-								<img src={"/assets/" + currentUser?.profilePic} alt="" />
+								<img src={currentUser?.profilePic} alt="" />
 								<span className="online"></span>
 							</div>
 							<FaEllipsisV
@@ -135,7 +135,7 @@ const Chats = ({ onlineUsers, isChat, setIsChat }) => {
 						</div>
 					</div>
 				</div>
-				{chats?.length > 0 && loading ? (
+				{loading ? (
 					<Loader />
 				) : chats?.length > 0 ? (
 					<div className="bottom">
@@ -145,8 +145,6 @@ const Chats = ({ onlineUsers, isChat, setIsChat }) => {
 									chat={chat}
 									onlineUsers={onlineUsers}
 									key={chat._id}
-									isChat={isChat}
-									setIsChat={setIsChat}
 								/>
 							))
 							.reverse()}
@@ -155,7 +153,7 @@ const Chats = ({ onlineUsers, isChat, setIsChat }) => {
 					<span className="noChats">No Chats yet!</span>
 				)}
 			</div>
-			{open && <CreateChat setOpen={setOpen} />}
+			{open && <CreateChat setOpen={setOpen} socket={socket} />}
 			{openUserSearch && <UserList setOpenUserSearch={setOpenUserSearch} />}
 			{isProfile && <Profile setIsProfile={setIsProfile} />}
 		</div>

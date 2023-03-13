@@ -10,6 +10,11 @@ import Loader from "../../components/loader/Loader";
 import { loadUser } from "../../redux/UserApi";
 import { toast } from "react-toastify";
 import { BsFillCameraFill } from "react-icons/bs";
+import axios from "axios";
+import { logout } from "../../redux/AuthRedux";
+import { clearUser } from "../../redux/UserRedux";
+import { clearChats } from "../../redux/ChatRedux";
+import { clearMessages } from "../../redux/MessageRedux";
 
 const Profile = ({ setIsProfile }) => {
 	const { currentUser } = useSelector((state) => state.auth);
@@ -32,14 +37,14 @@ const Profile = ({ setIsProfile }) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
+	const config = {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	};
+
 	const handleUpdate = async (e) => {
 		e.preventDefault();
-
-		const config = {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		};
 
 		if (password && password.length < 6) {
 			return toast.error("Password should not be less than 6 characters!", {
@@ -49,9 +54,14 @@ const Profile = ({ setIsProfile }) => {
 
 		const data = new FormData();
 		data.append("file", file);
+		data.append("upload_preset", "upload");
 
-		const uploadRes = await axiosInstance.post("/upload", data);
-		const url = uploadRes.data;
+		const uploadRes = await axios.post(
+			"https://api.cloudinary.com/v1_1/joniekesh/image/upload",
+			data
+		);
+
+		const { url } = uploadRes.data;
 
 		const updatedUser = {
 			firstName,
@@ -62,6 +72,7 @@ const Profile = ({ setIsProfile }) => {
 			phone,
 			profilePic: file ? url : user.profilePic,
 		};
+
 		setLoading(true);
 		try {
 			const res = await axiosInstance.put("/users/me", updatedUser, config);
@@ -80,6 +91,24 @@ const Profile = ({ setIsProfile }) => {
 
 	const handleEdit = () => {
 		setIsEdit(true);
+	};
+
+	const deleteAccount = async () => {
+		try {
+			if (window.confirm("Are you SURE? This cannot be UNDONE!")) {
+				const res = await axiosInstance.delete("/users/me", config);
+
+				if (res.status === 200) {
+					toast.success(res.data, { theme: "colored" });
+					dispatch(logout());
+					dispatch(clearUser());
+					dispatch(clearChats());
+					dispatch(clearMessages());
+				}
+			}
+		} catch (error) {
+			console.log(error);
+		}
 	};
 	return (
 		<div className="pFile">
@@ -184,10 +213,7 @@ const Profile = ({ setIsProfile }) => {
 						Edit Profile
 					</button>
 					<div className="top">
-						<img
-							src={"/assets/" + user?.profilePic || user?.profilePic}
-							alt=""
-						/>
+						<img src={user?.profilePic} alt="" />
 						<span className="online"></span>
 					</div>
 					<h2>{user?.firstName + " " + user?.lastName}</h2>
@@ -202,6 +228,9 @@ const Profile = ({ setIsProfile }) => {
 							{user?.bio?.slice(0, 90)}...
 						</span>
 					)}
+					<button onClick={deleteAccount} className="delBtn">
+						DELETE ACCOUNT
+					</button>
 				</div>
 			)}
 		</div>

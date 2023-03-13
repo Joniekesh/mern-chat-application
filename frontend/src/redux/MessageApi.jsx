@@ -33,7 +33,7 @@ export const getMessages = (chatId) => async (dispatch, getState) => {
 	}
 };
 
-export const createMessage = (inputs) => async (dispatch, getState) => {
+export const createMessage = (newMessage) => async (dispatch, getState) => {
 	const {
 		auth: { currentUser },
 	} = getState();
@@ -46,7 +46,7 @@ export const createMessage = (inputs) => async (dispatch, getState) => {
 
 	dispatch(createMessageRequest());
 	try {
-		const res = await axiosInstance.post("/messages", inputs, config);
+		const res = await axiosInstance.post("/messages", newMessage, config);
 		if (res.status === 200) {
 			dispatch(createMessageSuccess(res.data));
 		}
@@ -55,7 +55,7 @@ export const createMessage = (inputs) => async (dispatch, getState) => {
 	}
 };
 
-export const deleteMessage = (id, chatId) => async (dispatch, getState) => {
+export const deleteMessage = (id) => async (dispatch, getState) => {
 	const {
 		auth: { currentUser },
 	} = getState();
@@ -67,9 +67,9 @@ export const deleteMessage = (id, chatId) => async (dispatch, getState) => {
 	};
 
 	try {
-		const res = await axiosInstance.delete(`/messages/${id}/${chatId}`, config);
+		const res = await axiosInstance.delete(`/messages/${id}`, config);
 		if (res.status === 200) {
-			dispatch(removeMessage(res.data));
+			dispatch(removeMessage(id));
 		}
 	} catch (err) {
 		console.log(err);

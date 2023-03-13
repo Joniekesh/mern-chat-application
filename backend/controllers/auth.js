@@ -83,7 +83,7 @@ export const login = async (req, res) => {
 		});
 	} catch (err) {
 		console.log(err);
-		res.status(500).json(500);
+		res.status(500).json(err);
 	}
 };
 
@@ -112,9 +112,9 @@ export const forgotPassword = async (req, res) => {
 		await user.save();
 
 		// Create Reset URL to email to provided email address
-		const resetUrl = `https://joniechat.netlify.app/passwordreset/${resetToken}`;
+		const resetUrl = `http://localhost:5173/passwordreset/${resetToken}`;
 
-		// const resetUrl = `http://localhost:5173/passwordreset/${resetToken}`;
+		// const resetUrl = `https://joniechat.netlify.app/passwordreset/${resetToken}`;
 
 		//HTML Message
 		const message = `
