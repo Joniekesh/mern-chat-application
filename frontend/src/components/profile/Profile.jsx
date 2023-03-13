@@ -220,7 +220,7 @@ const Profile = ({ setIsProfile }) => {
 					<span style={{ fontWeight: "600" }}>{user?.email}</span>
 					<span style={{ fontWeight: "600" }}>{user?.phone}</span>
 					{user?.bio && user.bio.length < 90 ? (
-						<span style={{ fontWeight: "500", textAlign: "center" }}>
+						<span style={{ textAlign: "center", width: "90%" }}>
 							{user?.bio}
 						</span>
 					) : (
