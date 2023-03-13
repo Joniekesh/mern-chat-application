@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteMessage, getMessages } from "../../redux/MessageApi";
 import { useNavigate } from "react-router-dom";
 import { setIsChat } from "../../redux/ChatRedux";
-import axios from "axios";
 import { axiosInstance } from "../../utils/axiosInstance";
 
 const MessageItem = ({ message, chat, socket }) => {

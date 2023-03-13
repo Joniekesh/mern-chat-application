@@ -28,9 +28,9 @@ app.use(cors());
 
 const server = http.createServer(app);
 const io = new Server(server, {
-	cors: { origin: "http://localhost:5173" },
+	cors: { origin: "https://joniechat.netlify.app" },
 });
-// cors: { origin: "https://joniechat.netlify.app" },
+// cors: { origin: "http://localhost:5173" },
 
 io.on("connection", (socket) => {
 	socket.on("addUser", (userId) => {

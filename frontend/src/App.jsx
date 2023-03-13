@@ -20,10 +20,9 @@ import { getChats } from "./redux/ChatApi";
 import ResetPassword from "./pages/resetPassword/ResetPassword";
 
 var socket;
-const ENDPOINT = "http://localhost:5000";
+const ENDPOINT = "https://mern-chat-app-7njr.onrender.com";
 
-// const ENDPOINT = "https://mern-chat-app-7njr.onrender.com";
-
+// const ENDPOINT = "http://localhost:5000";
 const App = () => {
 	const dispatch = useDispatch();
 
