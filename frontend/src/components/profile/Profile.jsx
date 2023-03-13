@@ -224,7 +224,7 @@ const Profile = ({ setIsProfile }) => {
 							{user?.bio}
 						</span>
 					) : (
-						<span style={{ fontWeight: "500", textAlign: "center" }}>
+						<span style={{ textAlign: "center", width: "90%" }}>
 							{user?.bio?.slice(0, 90)}...
 						</span>
 					)}
