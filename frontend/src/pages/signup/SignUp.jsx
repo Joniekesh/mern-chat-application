@@ -41,11 +41,16 @@ const SignUp = () => {
 			toast.error("Passwords do not match", { theme: "colored" });
 		}
 
-		const data = new FormData();
-		data.append("file", file);
+		// const data = new FormData();
+		// data.append("file", file);
+		// data.append("upload_preset", "upload");
 
-		const uploadRes = await axiosInstance.post("/upload", data);
-		const url = uploadRes.data;
+		// const uploadRes = await axios.post(
+		// 	"https://api.cloudinary.com/v1_1/joniekesh/image/upload",
+		// 	data
+		// );
+
+		// const { url } = uploadRes.data;
 
 		setLoading(true);
 		try {
