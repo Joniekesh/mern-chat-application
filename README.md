@@ -11,3 +11,5 @@
 ![chatapptablet2](https://user-images.githubusercontent.com/73966666/225010302-c4bfa148-23dd-4428-9b5d-8f6de8756848.png)
 # MOBILE ROOM CHAT PAGE
 ![chatappmobile2](https://user-images.githubusercontent.com/73966666/225012167-756d7f9c-4ffc-4371-8105-4b4c6784438a.png)
+# CHAT ROOM DETAILS
+![chatappmobile1](https://user-images.githubusercontent.com/73966666/225017628-9e8e937a-8b9d-4352-886f-db2107776b6f.png)
