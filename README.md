@@ -3,6 +3,8 @@
 ![CHATAPPSIGNUP2](https://user-images.githubusercontent.com/73966666/225010572-48a88e8f-b3ca-4f64-a4ea-88db37cf3179.png)
 # SIGN IN PAGE
 ![CHATAPPSIGNUP](https://user-images.githubusercontent.com/73966666/225010646-868d3224-6b03-470d-9460-30b2ac7c53db.png)
+# WELCOME PAGE
+![chatappwelcomepage](https://user-images.githubusercontent.com/73966666/225020102-b2c27466-f1f9-46df-99cf-80f1b8d3095d.png)
 # FULL SCREEN PRIVATE CHAT PAGE
 ![chatapp](https://user-images.githubusercontent.com/73966666/225009822-308a9c1d-5b3f-430a-b4d6-366b87e376cf.png)
 # TABLET PUBLIC CHAT PAGE
